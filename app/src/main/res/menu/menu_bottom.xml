@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/lesson"
+        android:icon="@drawable/teach"
+        android:title="Lessons" />
+    <item
+        android:id="@+id/practice"
+        android:icon="@drawable/dumbbell"
+        android:title="Practice" />
+    <item
+        android:id="@+id/Glossary"
+        android:icon="@drawable/book"
+        android:title="Glossary" />
+    <item
+        android:id="@+id/Account"
+        android:icon="@drawable/user"
+        android:title="Account" />
+
+</menu>

@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "423382914156",
+    "project_id": "ty-projectsli",
+    "storage_bucket": "ty-projectsli.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:423382914156:android:90d739e511f1c1d3a77449",
+        "android_client_info": {
+          "package_name": "com.bikram.practice"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "423382914156-pve6nfrms42kh3l752591ogpeugd9klm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.bikram.practice",
+            "certificate_hash": "f09bdbf8a790f63ed84f1cf3cae4130021ade0f1"
+          }
+        },
+        {
+          "client_id": "423382914156-12sciant2oj2rj02qv4q2lcias2vq3n3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDJPJVcmvtoIzH1RRs92dXD3R-GgmOnZDc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "423382914156-12sciant2oj2rj02qv4q2lcias2vq3n3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

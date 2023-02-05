@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            tools:context=".SignupActivity">
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_gravity="center"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_rawRes="@raw/signup" />
+
+            <LinearLayout
+                android:id="@+id/linearLayout2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingStart="25dp"
+                android:paddingEnd="25dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:fontFamily="@font/resistantsanse"
+                    android:letterSpacing="0.1"
+                    android:text="Sign Up"
+                    android:textColor="@color/black"
+                    android:textSize="40dp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/roundededitext"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="18dp"
+                        android:layout_marginTop="11dp"
+                        android:layout_marginRight="12dp"
+                        android:src="@drawable/atrateiconsize" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="#ffff">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/txt_email"
+                            android:layout_width="280dp"
+                            android:layout_height="60dp"
+                            android:backgroundTint="#ffff"
+                            android:fontFamily="@font/resistantsanse"
+                            android:gravity="center|bottom|start"
+                            android:hint="Email Id"
+                            android:inputType="textEmailAddress"
+                            android:letterSpacing="0.1"
+                            android:paddingStart="10dp"
+                            android:paddingTop="10dp"
+                            tools:ignore="RtlHardcoded,TouchTargetSizeCheck" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/roundededitext"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="9dp"
+                        android:layout_marginRight="8dp"
+                        android:src="@drawable/bm" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="#ffff">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/txt_fname"
+                            android:layout_width="280dp"
+                            android:layout_height="60dp"
+                            android:backgroundTint="#ffff"
+                            android:fontFamily="@font/resistantsanse"
+                            android:gravity="center|bottom|start"
+                            android:hint="Full Name"
+                            android:inputType="textPersonName"
+                            android:letterSpacing="0.1"
+                            android:paddingStart="10dp"
+                            android:paddingTop="10dp"
+                            tools:ignore="TouchTargetSizeCheck" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/roundededitext"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="9dp"
+                        android:layout_marginRight="8dp"
+                        android:src="@drawable/phone" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="#ffff">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/txt_mobileno"
+                            android:layout_width="280dp"
+                            android:layout_height="60dp"
+                            android:backgroundTint="#ffff"
+                            android:fontFamily="@font/resistantsanse"
+                            android:gravity="center|bottom|start"
+                            android:hint="Mobile "
+                            android:inputType="number"
+                            android:letterSpacing="0.1"
+                            android:paddingStart="10dp"
+                            android:paddingTop="10dp"
+                            tools:ignore="TouchTargetSizeCheck" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/roundededitext"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="9dp"
+                        android:layout_marginRight="8dp"
+                        android:src="@drawable/lock" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="#ffff"
+                        android:baselineAligned="false"
+                        app:passwordToggleDrawable="@drawable/passtoggle"
+                        app:passwordToggleEnabled="true">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/txt_password"
+                            android:layout_width="280dp"
+                            android:layout_height="60dp"
+                            android:backgroundTint="#ffff"
+                            android:fontFamily="@font/resistantsanse"
+                            android:gravity="center|bottom|start"
+                            android:hint="Create Password"
+                            android:inputType="textPassword"
+                            android:letterSpacing="0.1"
+                            android:paddingStart="10dp"
+                            android:paddingTop="10dp"
+                            tools:ignore="TouchTargetSizeCheck" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+
+
+                <TextView
+                    android:id="@+id/tnc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:fontFamily="@font/resistantsanse"
+                    android:letterSpacing="0.1"
+                    android:paddingLeft="10dp"
+                    android:text=""
+                    android:textSize="13sp" />
+            </LinearLayout>
+
+
+            <Button
+                android:id="@+id/signup_continue"
+                android:layout_width="match_parent"
+                android:layout_height="53dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
+                android:background="@drawable/roundededitext"
+                android:fontFamily="@font/resistantsanse"
+                android:text="Continue"
+                android:textAllCaps="false" />
+
+            <TextView
+                android:id="@+id/guest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/resistantsanse"
+                android:letterSpacing="0.1"
+                android:text="Continue as Guest"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/redirect"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="15dp"
+                android:letterSpacing="0.1" />
+
+        </LinearLayout>
+    </ScrollView>
+</FrameLayout>

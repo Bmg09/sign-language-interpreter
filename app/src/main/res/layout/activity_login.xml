@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LoginActivity">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <com.airbnb.lottie.LottieAnimationView
+            android:layout_gravity="center"
+            android:id="@+id/lottieAnimationView"
+            android:layout_width="235dp"
+            android:layout_height="235dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.602"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/login" />
+
+
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="25dp"
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.454">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="30dp"
+                android:fontFamily="@font/resistantsanse"
+                android:letterSpacing="0.1"
+                android:text="Login"
+                android:textColor="@color/black"
+                android:textSize="40dp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:background="@drawable/roundededitext"
+                android:layout_marginBottom="10dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="18dp"
+                    android:layout_marginTop="11dp"
+                    android:layout_marginRight="12dp"
+                    android:src="@drawable/atrateiconsize" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="#ffff">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="280dp"
+                        android:id="@+id/txt_email_login"
+                        android:layout_height="60dp"
+                        android:backgroundTint="#ffff"
+                        android:fontFamily="@font/resistantsanse"
+                        android:gravity="center|bottom|start"
+                        android:hint="Email Id"
+                        android:inputType="textEmailAddress"
+                        android:letterSpacing="0.1"
+                        android:paddingStart="10dp"
+                        android:paddingTop="10dp"
+                        tools:ignore="RtlHardcoded,TouchTargetSizeCheck" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:background="@drawable/roundededitext"
+                android:layout_marginBottom="10dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="17dp"
+                    android:layout_marginTop="11dp"
+                    android:layout_marginRight="8dp"
+                    android:src="@drawable/lock" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="#ffff"
+                    app:passwordToggleEnabled="true"
+                    app:passwordToggleDrawable="@drawable/passtoggle">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="280dp"
+                        android:layout_height="60dp"
+                        android:id="@+id/txt_password_login"
+                        android:minHeight="0dp"
+                        android:backgroundTint="#ffff"
+                        android:fontFamily="@font/resistantsanse"
+                        android:gravity="center|bottom|start"
+                        android:hint="Password"
+                        android:inputType="textPassword"
+                        android:letterSpacing="0.1"
+                        android:paddingStart="10dp"
+                        android:paddingTop="10dp"
+                        tools:ignore="RtlHardcoded,TouchTargetSizeCheck" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/forgotpass"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/resistantsanse"
+                android:gravity="end"
+                android:letterSpacing="0.1"
+                android:paddingLeft="10dp"
+                android:text="Forgot password?"
+                android:textColor="@color/primaryColor"
+                android:textSize="13sp" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/login_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:background="@drawable/roundededitext"
+            android:fontFamily="@font/resistantsanse"
+            android:letterSpacing="0.1"
+            android:text="Login"
+            android:layout_marginBottom="20dp"
+            android:textAllCaps="false"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="20dp">
+            <View
+                android:layout_width="140dp"
+                android:layout_height="1dp"
+                android:layout_marginLeft="40dp"
+                android:layout_gravity="center"
+                android:background="@color/black"
+                app:layout_constraintBottom_toBottomOf="@+id/textView3"
+                app:layout_constraintEnd_toStartOf="@+id/textView3"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/textView3" />
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/resistantsanse"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:letterSpacing="0.1"
+                android:text="OR"
+                app:layout_constraintBottom_toBottomOf="parent"
+                />
+            <View
+                android:layout_gravity="center"
+                android:id="@+id/view"
+                android:layout_width="140dp"
+                android:layout_height="1dp"
+                android:background="@color/black"
+                app:layout_constraintBottom_toBottomOf="@+id/textView3"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/textView3"
+                app:layout_constraintTop_toTopOf="@+id/textView3" />
+        </LinearLayout>
+
+
+        <Button
+            android:id="@+id/button4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:layout_marginBottom="10dp"
+            android:backgroundTint="#808080"
+            android:drawableLeft="@drawable/googleg_standard_color_18"
+            android:fontFamily="@font/resistantsanse"
+            android:letterSpacing="0.1"
+            android:text="Login with Google"
+            android:textAllCaps="false"
+            />
+
+        <TextView
+            android:id="@+id/redirect_to_signup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:letterSpacing="0.1"
+            android:layout_gravity="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/button4" />
+    </LinearLayout>
+
+</ScrollView>
