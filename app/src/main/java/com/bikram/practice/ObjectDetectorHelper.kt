@@ -66,13 +66,12 @@ class ObjectDetectorHelper(
 
         val modelName =
             when (currentModel) {
-                MODEL_MOBILENETV1 -> "detectmeta.tflite"
+                MODEL_MOBILENETV1 -> "4.tflite"
                 MODEL_EFFICIENTDETV0 -> "detectmetav5_640x640_MAP814.tflite"
                 MODEL_EFFICIENTDETV1 -> "detectv2.tflite"
-                MODEL_EFFICIENTDETV2 -> "4.tflite"
+                MODEL_EFFICIENTDETV2 -> "detectmeta.tflite"
                 else -> "detectmeta.tflite"
             }
-
         try {
             objectDetector =
                 ObjectDetector.createFromFileAndOptions(context, modelName, optionsBuilder.build())
