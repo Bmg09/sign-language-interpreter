@@ -34,7 +34,7 @@ public class GridRecyclerView extends RecyclerView {
                 params.layoutAnimationParameters = animationParams;
             }
 
-            // Next we are updating the parameters
+            // Next updating the parameters
 
             // Set the number of items in the RecyclerView and the index of this item
             animationParams.count = count;
