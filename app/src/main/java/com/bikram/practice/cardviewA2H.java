@@ -34,6 +34,7 @@ public class cardviewA2H extends AppCompatActivity {
         mCardAdapter.addCardItem(new CardItem("A", R.raw.a));
         mCardAdapter.addCardItem(new CardItem("B", R.raw.b));
         mCardAdapter.addCardItem(new CardItem("C", R.raw.c));
+        mCardAdapter.addCardItem(new CardItem("C", R.raw.c));
 //        mCardAdapter.addCardItem(new CardItem("B", R.raw.watchvideo));
 //        mCardAdapter.addCardItem(new CardItem("C", R.raw.camera));
 
