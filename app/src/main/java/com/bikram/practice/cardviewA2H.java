@@ -15,10 +15,6 @@ public class cardviewA2H extends AppCompatActivity {
     ViewPager viewPager;
     WormDotsIndicator wormDotsIndicator;
     Slider slider;
-    private CardPagerAdapter mCardAdapter;
-    private ShadowTransformer mCardShadowTransformer;
-    int maxOffset;
-    int currentOffset;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,15 +26,12 @@ public class cardviewA2H extends AppCompatActivity {
         wormDotsIndicator = (WormDotsIndicator) findViewById(R.id.worm_dots_indicator);
         viewPager = findViewById(R.id.viewPager);
         slider = findViewById(R.id.slider);
-        mCardAdapter = new CardPagerAdapter();
+        CardPagerAdapter mCardAdapter = new CardPagerAdapter();
         mCardAdapter.addCardItem(new CardItem("A", R.raw.a));
         mCardAdapter.addCardItem(new CardItem("B", R.raw.b));
         mCardAdapter.addCardItem(new CardItem("C", R.raw.c));
-        mCardAdapter.addCardItem(new CardItem("C", R.raw.c));
-//        mCardAdapter.addCardItem(new CardItem("B", R.raw.watchvideo));
-//        mCardAdapter.addCardItem(new CardItem("C", R.raw.camera));
 
-        mCardShadowTransformer = new ShadowTransformer(viewPager, mCardAdapter);
+        ShadowTransformer mCardShadowTransformer = new ShadowTransformer(viewPager, mCardAdapter);
         viewPager.setAdapter(mCardAdapter);
         viewPager.setPageTransformer(false, mCardShadowTransformer);
         viewPager.setOffscreenPageLimit(3);
@@ -46,15 +39,6 @@ public class cardviewA2H extends AppCompatActivity {
         slider.addOnChangeListener(new Slider.OnChangeListener() {
             @Override
             public void onValueChange(@NonNull Slider slider, float value, boolean fromUser) {
-//                if(viewPager.isFakeDragging()){
-//                    int offset = (int) ((maxOffset / 100.0) * value);
-//
-//                    int dragby = -1 * (offset - currentOffset);
-//                    Log.d("DRAGBY", "" + value);
-//                    viewPager.fakeDragBy(dragby);
-//
-//                    currentOffset = offset;
-//                }
                 viewPager.setCurrentItem((int) value);
             }
         });
