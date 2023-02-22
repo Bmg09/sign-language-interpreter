@@ -11,6 +11,7 @@ import org.tensorflow.lite.support.image.ops.Rot90Op
 import org.tensorflow.lite.task.core.BaseOptions
 import org.tensorflow.lite.task.vision.detector.Detection
 import org.tensorflow.lite.task.vision.detector.ObjectDetector
+import java.io.File
 
 class ObjectDetectorHelper(
     var threshold: Float = 0.5f,
@@ -66,15 +67,16 @@ class ObjectDetectorHelper(
 
         val modelName =
             when (currentModel) {
-                MODEL_MOBILENETV1 -> "4.tflite"
+                MODEL_MOBILENETV1 -> "HandSignDetector.tflite"
                 MODEL_EFFICIENTDETV0 -> "detectmetav5_640x640_MAP814.tflite"
                 MODEL_EFFICIENTDETV1 -> "detectv2.tflite"
                 MODEL_EFFICIENTDETV2 -> "detectmeta.tflite"
                 else -> "detectmeta.tflite"
             }
         try {
+            val file = File(context.filesDir, "0.tflite")
             objectDetector =
-                ObjectDetector.createFromFileAndOptions(context, modelName, optionsBuilder.build())
+                ObjectDetector.createFromFileAndOptions(file, optionsBuilder.build())
         } catch (e: IllegalStateException) {
             objectDetectorListener?.onError(
                 "Object detector failed to initialize. See error logs for details"

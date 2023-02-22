@@ -6,17 +6,31 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 
-import androidx.annotation.ColorInt;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
+import android.os.Environment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.ml.modeldownloader.CustomModel;
+import com.google.firebase.ml.modeldownloader.CustomModelDownloadConditions;
+import com.google.firebase.ml.modeldownloader.DownloadType;
+import com.google.firebase.ml.modeldownloader.FirebaseModelDownloader;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.nio.channels.FileChannel;
+import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,7 +43,7 @@ public class PracticeFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
+    public static String modelNameD;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -75,6 +89,21 @@ public class PracticeFragment extends Fragment {
         toolbar.setTitle("Practice");
         AppCompatActivity activity = (AppCompatActivity) getActivity();
         activity.setSupportActionBar(toolbar);
+        CustomModelDownloadConditions conditions = new CustomModelDownloadConditions.Builder()
+                .requireWifi()
+                .build();
+        FirebaseModelDownloader.getInstance()
+                .getModel("HandSignDetector", DownloadType.LOCAL_MODEL, conditions)
+                .addOnSuccessListener(new OnSuccessListener<CustomModel>() {
+                    @Override
+                    public void onSuccess(CustomModel model) {
+                        // Download complete. Depending on your app, you could enable
+                        // the ML feature, or switch from the local model to the remote
+                        // model, etc.
+//                        Toast.makeText(activity, "Downloaded ", Toast.LENGTH_SHORT).show();
+                        copyFile(Objects.requireNonNull(model.getLocalFilePath()));
+                    }
+                });
         view.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -92,15 +121,64 @@ public class PracticeFragment extends Fragment {
                 });
                 anim.start();
             }
-        },0);
-       // Toast.makeText(view.getContext(), "Practicefrag", Toast.LENGTH_SHORT).show();
+        }, 0);
+        // Toast.makeText(view.getContext(), "Practicefrag", Toast.LENGTH_SHORT).show();
         Button button = view.findViewById(R.id.start_recog);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getContext(),CameraActivity.class));
+                //dmodel - downloaded model
+                Intent intent = new Intent(getContext(), CameraActivity.class);
+                intent.putExtra("dmodel", modelNameD);
+                startActivity(intent);
             }
         });
         return view;
+    }
+
+    private void copyFile(@NonNull String localFilePath) {
+        String[] parts = localFilePath.split("/");
+        String uid = parts[parts.length - 3];
+        System.out.println(uid);
+        Log.d("check",getContext().getFilesDir().toString());
+        File filePath = getContext().getFilesDir();
+        String filePathString = filePath.toString();
+        File fileDir = new File(filePathString);
+
+        String[] files = fileDir.list();
+        assert files != null;
+        for (String fname :
+                files) {
+            Log.i("files",fname);
+        }
+        if(files.length == 0){
+            Log.w("check1", "NO FILES IN FOLDER");
+        }
+
+        try {
+            File sd = Environment.getExternalStorageDirectory();
+            File data = Environment.getDataDirectory();
+            Toast.makeText(getContext(), String.valueOf(sd.canRead()), Toast.LENGTH_SHORT).show();
+            if(sd.canRead()){
+                String currentModelPath = "//data//"+ requireContext().getPackageName()+"//no_backup//com.google.firebase.ml.custom.models//"+uid+"//HandSignDetector//"+parts[parts.length - 1];
+                String backupModelPath = "//data//"+ requireContext().getPackageName()+"//files//0.tflite";
+                File currentModel = new File(data,currentModelPath);
+                File backupModel = new File(data,backupModelPath);
+                if (currentModel.exists()){
+
+                    FileChannel src = new FileInputStream(currentModel).getChannel();
+                    Toast.makeText(getContext(), String.valueOf(src), Toast.LENGTH_SHORT).show();
+                    FileChannel dst = new FileOutputStream(backupModel).getChannel();
+                    dst.transferFrom(src,0,src.size());
+                    Toast.makeText(getContext(), "success", Toast.LENGTH_SHORT).show();
+                    src.close();
+                    dst.close();
+                }
+                else
+                    Toast.makeText(getContext(), "Failed", Toast.LENGTH_SHORT).show();
+            }
+        } catch (Exception e) {
+            Log.e("error",e.getMessage());
+        }
     }
 }
