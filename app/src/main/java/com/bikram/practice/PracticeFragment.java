@@ -93,7 +93,7 @@ public class PracticeFragment extends Fragment {
                 .requireWifi()
                 .build();
         FirebaseModelDownloader.getInstance()
-                .getModel("HandSignDetector", DownloadType.LOCAL_MODEL, conditions)
+                .getModel("HandSignDetector", DownloadType.LATEST_MODEL, conditions)
                 .addOnSuccessListener(new OnSuccessListener<CustomModel>() {
                     @Override
                     public void onSuccess(CustomModel model) {

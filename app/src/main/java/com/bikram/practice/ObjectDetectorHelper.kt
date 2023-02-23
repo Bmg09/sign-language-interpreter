@@ -60,7 +60,7 @@ class ObjectDetectorHelper(
             }
             DELEGATE_NNAPI -> {
                 baseOptionsBuilder.useNnapi()
-            }
+            }   
         }
 
         optionsBuilder.setBaseOptions(baseOptionsBuilder.build())
