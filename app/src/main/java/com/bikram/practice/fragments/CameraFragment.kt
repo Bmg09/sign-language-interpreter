@@ -1,6 +1,7 @@
 package com.bikram.practice.fragments
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.res.Configuration
 import android.graphics.Bitmap
 import android.os.Bundle
@@ -16,12 +17,13 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import com.bikram.practice.ObjectDetectorHelper
+import com.bikram.practice.R
 import com.bikram.practice.databinding.FragmentCameraBinding
 import org.tensorflow.lite.task.vision.detector.Detection
 import java.util.*
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
-import com.bikram.practice.R
+
 
 class CameraFragment : Fragment(), ObjectDetectorHelper.DetectorListener {
     private val TAG = "ObjectDetection"
@@ -40,6 +42,16 @@ class CameraFragment : Fragment(), ObjectDetectorHelper.DetectorListener {
 
     /** Blocking camera operations are performed using this executor */
     private lateinit var cameraExecutor: ExecutorService
+    private var detectionListener: DetectionListener? = null
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        detectionListener = try {
+            context as DetectionListener
+        } catch (e: ClassCastException) {
+            throw ClassCastException("$context must implement DetectionListener")
+        }
+    }
 
     override fun onResume() {
         super.onResume()
@@ -280,6 +292,7 @@ class CameraFragment : Fragment(), ObjectDetectorHelper.DetectorListener {
         imageHeight: Int,
         imageWidth: Int
     ) {
+        detectionListener?.onDetectionResult(results)
         activity?.runOnUiThread {
             fragmentCameraBinding.bottomSheetLayout.inferenceTimeVal.text =
                 String.format("%d ms", inferenceTime)
@@ -301,4 +314,8 @@ class CameraFragment : Fragment(), ObjectDetectorHelper.DetectorListener {
             Toast.makeText(requireContext(), error, Toast.LENGTH_SHORT).show()
         }
     }
+    interface DetectionListener {
+        fun onDetectionResult(result:MutableList<Detection>?)
+    }
+
 }

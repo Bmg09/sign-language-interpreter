@@ -75,8 +75,7 @@ class ObjectDetectorHelper(
             }
         try {
             val file = File(context.filesDir, "0.tflite")
-            objectDetector =
-                ObjectDetector.createFromFileAndOptions(file, optionsBuilder.build())
+            objectDetector = ObjectDetector.createFromFileAndOptions(file, optionsBuilder.build())
         } catch (e: IllegalStateException) {
             objectDetectorListener?.onError(
                 "Object detector failed to initialize. See error logs for details"

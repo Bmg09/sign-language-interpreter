@@ -1,8 +1,8 @@
 package com.bikram.practice
 
-import android.app.Dialog
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -10,11 +10,13 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.bikram.practice.databinding.ActivityCameraBinding
+import com.bikram.practice.fragments.CameraFragment
 import com.shashank.sony.fancydialoglib.Animation
 import com.shashank.sony.fancydialoglib.FancyAlertDialog
+import org.tensorflow.lite.task.vision.detector.Detection
 import java.security.AccessController.getContext
 
-class CameraActivity : AppCompatActivity() {
+class CameraActivity : AppCompatActivity() ,CameraFragment.DetectionListener{
     private lateinit var cameraActivityBinding: ActivityCameraBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,5 +65,10 @@ class CameraActivity : AppCompatActivity() {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onDetectionResult(result: MutableList<Detection>?) {
+        println(result)
+        Log.d("res",result.toString())
     }
 }
