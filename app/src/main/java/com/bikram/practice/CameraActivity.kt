@@ -83,7 +83,7 @@ class CameraActivity : AppCompatActivity() ,CameraFragment.DetectionListener{
                         count: Int,
                         after: Int
                     ) {
-                        TODO("SLEEP")
+
                     }
 
                     override fun onTextChanged(
@@ -92,11 +92,11 @@ class CameraActivity : AppCompatActivity() ,CameraFragment.DetectionListener{
                         before: Int,
                         count: Int
                     ) {
-                        TODO("Not yet implemented")
+
                     }
 
                     override fun afterTextChanged(s: Editable?) {
-                        TODO("Not yet implemented")
+
                     }
 
                 })
