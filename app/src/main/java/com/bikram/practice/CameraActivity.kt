@@ -2,6 +2,8 @@ package com.bikram.practice
 
 import android.graphics.Color
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
@@ -14,7 +16,6 @@ import com.bikram.practice.fragments.CameraFragment
 import com.shashank.sony.fancydialoglib.Animation
 import com.shashank.sony.fancydialoglib.FancyAlertDialog
 import org.tensorflow.lite.task.vision.detector.Detection
-import java.security.AccessController.getContext
 
 class CameraActivity : AppCompatActivity() ,CameraFragment.DetectionListener{
     private lateinit var cameraActivityBinding: ActivityCameraBinding
@@ -22,7 +23,7 @@ class CameraActivity : AppCompatActivity() ,CameraFragment.DetectionListener{
         super.onCreate(savedInstanceState)
         cameraActivityBinding = ActivityCameraBinding.inflate(layoutInflater)
         setContentView(cameraActivityBinding.root)
-        val toolbar: Toolbar = findViewById<Toolbar>(R.id.toolbar)
+        val toolbar: Toolbar = findViewById(R.id.toolbar)
         toolbar.title = "Recognition"
         setSupportActionBar(toolbar)
 
@@ -37,12 +38,12 @@ class CameraActivity : AppCompatActivity() ,CameraFragment.DetectionListener{
         when (item.toString()){
             "Info" ->{
                 FancyAlertDialog.Builder.with(this).setTitle("About Lesson Page")
-                    .setBackgroundColor(Color.parseColor("#303F9F")) // for @ColorRes use setBackgroundColorRes(R.color.colorvalue)
+                    .setBackgroundColor(Color.parseColor("#303F9F")) // for @ColorRes use setBackgroundColorRes(R.color.colorValue)
                     .setMessage("We have provided Two Categories as lessons for user to practice the signs Letters and Numbers")
                     .setNegativeBtnText("Cancel")
-                    .setPositiveBtnBackground(Color.parseColor("#FF4081")) // for @ColorRes use setPositiveBtnBackgroundRes(R.color.colorvalue)
+                    .setPositiveBtnBackground(Color.parseColor("#FF4081")) // for @ColorRes use setPositiveBtnBackgroundRes(R.color.colorValue)
                     .setPositiveBtnText("Ok")
-                    .setNegativeBtnBackground(Color.parseColor("#FFA9A7A8")) // for @ColorRes use setNegativeBtnBackgroundRes(R.color.colorvalue)
+                    .setNegativeBtnBackground(Color.parseColor("#FFA9A7A8")) // for @ColorRes use setNegativeBtnBackgroundRes(R.color.colorValue)
                     .setAnimation(Animation.SLIDE)
                     .isCancellable(true)
                     .setIcon(R.drawable.lesson, View.VISIBLE)
@@ -70,5 +71,37 @@ class CameraActivity : AppCompatActivity() ,CameraFragment.DetectionListener{
     override fun onDetectionResult(result: MutableList<Detection>?) {
         println(result)
         Log.d("res",result.toString())
+        result?.forEach { detection ->
+            runOnUiThread {
+                val drawableText = detection.categories[0].label + " " +
+                        String.format("%.2f", detection.categories[0].score)
+                cameraActivityBinding.Label.text = drawableText
+                cameraActivityBinding.Label.addTextChangedListener(object : TextWatcher{
+                    override fun beforeTextChanged(
+                        s: CharSequence?,
+                        start: Int,
+                        count: Int,
+                        after: Int
+                    ) {
+                        TODO("SLEEP")
+                    }
+
+                    override fun onTextChanged(
+                        s: CharSequence?,
+                        start: Int,
+                        before: Int,
+                        count: Int
+                    ) {
+                        TODO("Not yet implemented")
+                    }
+
+                    override fun afterTextChanged(s: Editable?) {
+                        TODO("Not yet implemented")
+                    }
+
+                })
+            }
+
+        }
     }
 }
