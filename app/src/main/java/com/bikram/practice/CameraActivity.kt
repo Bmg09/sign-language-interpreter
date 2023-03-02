@@ -113,6 +113,7 @@ class CameraActivity : AppCompatActivity(), CameraFragment.DetectionListener {
         return super.onOptionsItemSelected(item)
     }
     private var previousLabel: String? = null
+    private var sentence: String? = null
     override fun onDetectionResult(result: MutableList<Detection>?) {
         println(result)
         Log.d("res", result.toString())
@@ -121,8 +122,15 @@ class CameraActivity : AppCompatActivity(), CameraFragment.DetectionListener {
                 val currentLabel = detection.categories[0].label
                 if (currentLabel != previousLabel) { // Check if the label has changed
                     previousLabel = currentLabel // Update the previous label
-                    val drawableText = currentLabel + " " +
-                            String.format("%.2f", detection.categories[0].score)
+                    if(sentence == null){
+                        sentence = currentLabel
+                    }
+                    else{
+                        sentence += " $currentLabel"
+                    }
+                    val drawableText = "Label: "+currentLabel + " " +
+                            String.format("%.2f", detection.categories[0].score*100)+" %"
+                    Log.d("CA",String.format("%.2f", detection.categories[0].score*100))
                     cameraActivityBinding.Label.text = drawableText
                     textToSpeech.speak(currentLabel, TextToSpeech.QUEUE_FLUSH, null, null) // Speak the label
                 }
