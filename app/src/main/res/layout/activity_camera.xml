@@ -24,6 +24,7 @@
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:layout_width="wrap_content"
+            android:id="@+id/fab"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:layout_margin="10dp"
@@ -60,7 +61,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:fontFamily="@font/resistantsanse"
-        android:text="TextView"
+        android:text="Detection"
         android:textColor="@color/black"
 
         app:layout_constraintBottom_toTopOf="@+id/frame"
@@ -83,7 +84,7 @@
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="56dp"
+        android:layout_marginBottom="76dp"
         android:fontFamily="@font/resistantsanse"
         android:text="Sentence Generated"
         android:textColor="@color/black"
@@ -97,7 +98,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
+        android:fontFamily="@font/resistantsanse"
         android:text="TextView"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toTopOf="@+id/frame"
         app:layout_constraintEnd_toStartOf="@+id/langspinner"
         app:layout_constraintHorizontal_bias="0.043"

@@ -2,7 +2,6 @@ package com.bikram.practice
 
 import android.graphics.Color
 import android.os.Bundle
-import android.os.Handler
 import android.speech.tts.TextToSpeech
 import android.util.Log
 import android.view.Menu
@@ -31,17 +30,17 @@ class CameraActivity : AppCompatActivity(), CameraFragment.DetectionListener {
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         toolbar.title = "Recognition"
         setSupportActionBar(toolbar)
-        textToSpeech = TextToSpeech(this,object : TextToSpeech.OnInitListener{
+        textToSpeech = TextToSpeech(this, object : TextToSpeech.OnInitListener {
             override fun onInit(status: Int) {
-                if (status == TextToSpeech.SUCCESS){
+                if (status == TextToSpeech.SUCCESS) {
                     val result = textToSpeech.setLanguage(Locale.getDefault())
-                    if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED){
-                        Log.e("TTS","Language not supported")
-                    }else{
-                        Log.e("TTS","Language supported")
+                    if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                        Log.e("TTS", "Language not supported")
+                    } else {
+                        Log.e("TTS", "Language supported")
                     }
-                }else{
-                    Log.e("TTS","Initialization failed")
+                } else {
+                    Log.e("TTS", "Initialization failed")
                 }
             }
 
@@ -54,23 +53,52 @@ class CameraActivity : AppCompatActivity(), CameraFragment.DetectionListener {
         val adapter = ArrayAdapter<Locale>(this, android.R.layout.simple_spinner_item, languages)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         cameraActivityBinding.langspinner.adapter = adapter
-        cameraActivityBinding.langspinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                parent: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {
-                val locale = languages[position]
-                textToSpeech.language = locale
-                val text = "Hello, world!"
-                textToSpeech.speak(text, TextToSpeech.QUEUE_FLUSH, null, null)
+        cameraActivityBinding.langspinner.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
+                    val locale = languages[position]
+                    textToSpeech.language = locale
+                    val text = "Hello, world!"
+                    textToSpeech.speak(text, TextToSpeech.QUEUE_FLUSH, null, null)
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+                    // Do nothing
+                }
+            }
+        cameraActivityBinding.gentext.setOnClickListener(object : View.OnClickListener {
+            override fun onClick(v: View?) {
+                if (textToSpeech.isSpeaking) {
+                    textToSpeech.stop()
+                } else {
+                    textToSpeech.speak(
+                        cameraActivityBinding.gentext.text as String?,
+                        TextToSpeech.QUEUE_FLUSH,
+                        null,
+                        null
+                    )
+                }
+            }
+        })
+        cameraActivityBinding.fab.setOnClickListener(object : View.OnClickListener {
+            override fun onClick(v: View?) {
+                cameraActivityBinding.gentext.visibility = View.INVISIBLE
+            }
+        })
+        cameraActivityBinding.fab.setOnLongClickListener(object : View.OnLongClickListener{
+            override fun onLongClick(v: View?): Boolean {
+                sentence = " "
+                cameraActivityBinding.gentext.text = sentence
+                cameraActivityBinding.gentext.visibility = View.VISIBLE
+                return true
             }
 
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-                // Do nothing
-            }
-        }
+        })
 
     }
 
@@ -112,6 +140,7 @@ class CameraActivity : AppCompatActivity(), CameraFragment.DetectionListener {
         }
         return super.onOptionsItemSelected(item)
     }
+
     private var previousLabel: String? = null
     private var sentence: String? = null
     override fun onDetectionResult(result: MutableList<Detection>?) {
@@ -122,17 +151,22 @@ class CameraActivity : AppCompatActivity(), CameraFragment.DetectionListener {
                 val currentLabel = detection.categories[0].label
                 if (currentLabel != previousLabel) { // Check if the label has changed
                     previousLabel = currentLabel // Update the previous label
-                    if(sentence == null){
+                    if (sentence == null) {
                         sentence = currentLabel
-                    }
-                    else{
+                    } else {
                         sentence += " $currentLabel"
+                        cameraActivityBinding.gentext.text = sentence
                     }
-                    val drawableText = "Label: "+currentLabel + " " +
-                            String.format("%.2f", detection.categories[0].score*100)+" %"
-                    Log.d("CA",String.format("%.2f", detection.categories[0].score*100))
+                    val drawableText = "Label: " + currentLabel + " " +
+                            String.format("%.2f", detection.categories[0].score * 100) + " %"
+                    Log.d("CA", String.format("%.2f", detection.categories[0].score * 100))
                     cameraActivityBinding.Label.text = drawableText
-                    textToSpeech.speak(currentLabel, TextToSpeech.QUEUE_FLUSH, null, null) // Speak the label
+                    textToSpeech.speak(
+                        currentLabel,
+                        TextToSpeech.QUEUE_FLUSH,
+                        null,
+                        null
+                    ) // Speak the label
                 }
             }
         }

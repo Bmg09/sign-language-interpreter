@@ -139,7 +139,7 @@ public class PracticeFragment extends Fragment {
         String[] parts = localFilePath.split("/");
         String uid = parts[parts.length - 3];
         System.out.println(uid);
-        Log.d("check", getContext().getFilesDir().toString());
+//        Log.d("check", getContext().getFilesDir().toString());
         File filePath = getContext().getFilesDir();
         String filePathString = filePath.toString();
         File fileDir = new File(filePathString);

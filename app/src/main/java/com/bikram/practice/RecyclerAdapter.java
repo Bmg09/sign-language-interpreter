@@ -35,14 +35,14 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         holder.getLetter().setText(letters.get(position));
-//        holder.getCardView().setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(context,CardViewerSwipeable.class);
-//                intent.putExtra("t",String.valueOf(position));
-//                context.startActivity(intent);
-//            }
-//        });
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, GlossaryActivity.class);
+                intent.putExtra("letter", position);
+                context.startActivity(intent);
+            }
+        });
     }
 
 
@@ -62,9 +62,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
         }
 
-        public CardView getCardView() {
-            return cardView;
-        }
+//        public CardView getCardView() {
+//            return cardView;
+//        }
 
         public TextView getLetter() {
             return letter;

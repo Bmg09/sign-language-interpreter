@@ -21,11 +21,13 @@ import com.google.android.exoplayer2.ui.StyledPlayerView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CardPagerAdapter extends PagerAdapter implements CardAdapter{
+public class CardPagerAdapter extends PagerAdapter implements CardAdapter {
     private List<CardView> mViews;
     private List<CardItem> mData;
     private float mBaseElevation;
-    ExoPlayer player;
+    public static ExoPlayer player;
+    public static StyledPlayerView styledPlayerView;
+
     public CardPagerAdapter() {
         mData = new ArrayList<>();
         mViews = new ArrayList<>();
@@ -54,6 +56,14 @@ public class CardPagerAdapter extends PagerAdapter implements CardAdapter{
 
     @Override
     public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
+        View view = (View) object;
+        StyledPlayerView styledPlayerView = view.findViewById(R.id.videoViewA2H);
+        ExoPlayer player = (ExoPlayer) styledPlayerView.getPlayer();
+
+        // Release the player to free up resources
+        if (player != null) {
+            player.release();
+        }
         container.removeView((View) object);
         mViews.set(position, null);
     }
@@ -71,24 +81,6 @@ public class CardPagerAdapter extends PagerAdapter implements CardAdapter{
         container.addView(view);
         bind(mData.get(position), view);
         CardView cardView = (CardView) view.findViewById(R.id.cardView);
-        switch (position) {
-            case 0:
-                cardView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                    }
-                });
-                break;
-            case 1:
-                cardView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Toast.makeText(view.getContext(), "Ok card", Toast.LENGTH_SHORT).show();
-                    }
-                });
-                break;
-        }
         if (mBaseElevation == 0) {
             mBaseElevation = cardView.getCardElevation();
         }
@@ -102,7 +94,7 @@ public class CardPagerAdapter extends PagerAdapter implements CardAdapter{
         TextView titleTextView = (TextView) view.findViewById(R.id.letterA2H);
         titleTextView.setText(item.getLetter());
         player = new ExoPlayer.Builder(view.getContext()).build();
-        StyledPlayerView styledPlayerView = view.findViewById(R.id.videoViewA2H);
+        styledPlayerView = view.findViewById(R.id.videoViewA2H);
         styledPlayerView.setPlayer(player);
         Uri player_uri = Uri.parse("android.resource://com.bikram.practice/" + item.getVidResId());
         MediaItem mediaItem = MediaItem.fromUri(player_uri);
@@ -111,5 +103,25 @@ public class CardPagerAdapter extends PagerAdapter implements CardAdapter{
         player.prepare();
         player.play();
         player.setRepeatMode(player.REPEAT_MODE_ONE);
+    }
+
+    // https://github.com/google/ExoPlayer/issues/7750
+    // workaround for black screen issues removing each view and reinitializing again
+    @Override
+    public void finishUpdate(@NonNull ViewGroup container) {
+        super.finishUpdate(container);
+        int childCount = container.getChildCount();
+        for (int i = 0; i < childCount; i++) {
+            View view = container.getChildAt(i);
+            if (view != null) {
+                StyledPlayerView styledPlayerView = view.findViewById(R.id.videoViewA2H);
+                ExoPlayer player = (ExoPlayer) styledPlayerView.getPlayer();
+                if (player != null){
+                    // This is the last item, so pause the player
+                    // This is not the last item, so resume the player
+                    player.setPlayWhenReady(i != container.indexOfChild(container.getChildAt(container.getChildCount()-2 )));
+                }
+            }
+        }
     }
 }

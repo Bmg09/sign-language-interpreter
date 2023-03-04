@@ -7,6 +7,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
 import com.google.android.material.slider.Slider;
 import com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator;
@@ -30,11 +31,40 @@ public class cardviewA2H extends AppCompatActivity {
         mCardAdapter.addCardItem(new CardItem("A", R.raw.a));
         mCardAdapter.addCardItem(new CardItem("B", R.raw.b));
         mCardAdapter.addCardItem(new CardItem("C", R.raw.c));
+        mCardAdapter.addCardItem(new CardItem("D", R.raw.d));
+        mCardAdapter.addCardItem(new CardItem("E", R.raw.e));
+        mCardAdapter.addCardItem(new CardItem("F", R.raw.f));
+        mCardAdapter.addCardItem(new CardItem("G", R.raw.g));
+        mCardAdapter.addCardItem(new CardItem("H", R.raw.h));
+        slider.setValueFrom(0f);
+        slider.setValueTo(8f);
+        slider.setStepSize(1f);
 
         ShadowTransformer mCardShadowTransformer = new ShadowTransformer(viewPager, mCardAdapter);
         viewPager.setAdapter(mCardAdapter);
         viewPager.setPageTransformer(false, mCardShadowTransformer);
-        viewPager.setOffscreenPageLimit(3);
+        viewPager.setOffscreenPageLimit(1);
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                View view = viewPager.getChildAt(position);
+                if (view != null) {
+
+                }
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+
         wormDotsIndicator.attachTo(viewPager);
         slider.addOnChangeListener(new Slider.OnChangeListener() {
             @Override
