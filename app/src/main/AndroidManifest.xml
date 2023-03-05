@@ -24,10 +24,28 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".GlossaryActivitySerial"
+            android:exported="false" />
+        <activity
+            android:name=".GlossaryActivityNumbers"
+            android:exported="false" />
+        <activity
+            android:name=".cardview.cardview0_9"
+            android:exported="false" />
+        <activity
+            android:name=".cardview.cardview1_9"
+            android:exported="false" />
+        <activity
+            android:name=".cardview.cardviewQ2Z"
+            android:exported="false" />
+        <activity
+            android:name=".cardview.cardviewI2P"
+            android:exported="false" />
+        <activity
             android:name=".GlossaryActivity"
             android:exported="false" />
         <activity
-            android:name=".cardviewA2H"
+            android:name=".cardview.cardviewA2H"
             android:exported="false" />
         <activity
             android:name=".CardViewerSwipeable"

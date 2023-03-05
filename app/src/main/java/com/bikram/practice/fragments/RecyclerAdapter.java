@@ -1,4 +1,4 @@
-package com.bikram.practice;
+package com.bikram.practice.fragments;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -7,11 +7,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.bikram.practice.GlossaryActivity;
+import com.bikram.practice.R;
 
 import java.util.List;
 
@@ -34,15 +36,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
-        holder.getLetter().setText(letters.get(position));
-        holder.cardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, GlossaryActivity.class);
-                intent.putExtra("letter", position);
-                context.startActivity(intent);
-            }
-        });
+        if (mListener != null) {
+            mListener.onBindViewHolder(holder, position);
+        }
     }
 
 
@@ -62,12 +58,15 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
         }
 
-//        public CardView getCardView() {
-//            return cardView;
-//        }
-
         public TextView getLetter() {
             return letter;
         }
+    }
+    public interface OnBindViewHolderListener {
+        void onBindViewHolder(RecyclerAdapter.ViewHolder holder, int position);
+    }
+    private OnBindViewHolderListener mListener;
+    public void setOnBindViewHolderListener(OnBindViewHolderListener listener) {
+        mListener = listener;
     }
 }

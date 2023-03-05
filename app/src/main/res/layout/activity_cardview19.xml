@@ -4,16 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".cardview.cardviewA2H">
+    tools:context=".cardview.cardview1_9">
 
     <com.google.android.material.slider.Slider
         android:id="@+id/slider"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:stepSize="1.0"
         android:valueFrom="0.0"
         android:valueTo="3.0"
         app:labelBehavior="gone"
-        android:stepSize="1.0"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@id/viewPager"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

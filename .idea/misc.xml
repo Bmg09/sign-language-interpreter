@@ -12,22 +12,31 @@
         <entry key="..\:/Users/bikra/OneDrive/Desktop/Practice/app/src/main/res/drawable-v24/phone.xml" value="0.2025" />
         <entry key="..\:/Users/bikra/OneDrive/Desktop/Practice/app/src/main/res/drawable-v24/roundededitext.xml" value="0.2025" />
         <entry key="..\:/Users/bikra/OneDrive/Desktop/Practice/app/src/main/res/drawable/ic_plus.xml" value="0.175" />
+        <entry key="..\:/Users/bikra/OneDrive/Desktop/Practice/app/src/main/res/drawable/my_grad.xml" value="0.2295" />
         <entry key="..\:/Users/bikra/OneDrive/Desktop/Practice/app/src/main/res/drawable/roundcorner.xml" value="0.1605" />
         <entry key="..\:/Users/bikra/OneDrive/Desktop/Practice/app/src/main/res/layout/activity_camera.xml" value="0.176" />
         <entry key="..\:/Users/bikra/OneDrive/Desktop/Practice/app/src/main/res/layout/activity_card_viewer_swipeable.xml" value="0.259375" />
+        <entry key="..\:/Users/bikra/OneDrive/Desktop/Practice/app/src/main/res/layout/activity_cardview09.xml" value="0.2" />
+        <entry key="..\:/Users/bikra/OneDrive/Desktop/Practice/app/src/main/res/layout/activity_cardview19.xml" value="0.259375" />
         <entry key="..\:/Users/bikra/OneDrive/Desktop/Practice/app/src/main/res/layout/activity_cardview_a2_h.xml" value="0.264" />
+        <entry key="..\:/Users/bikra/OneDrive/Desktop/Practice/app/src/main/res/layout/activity_cardview_i2_p.xml" value="0.152" />
+        <entry key="..\:/Users/bikra/OneDrive/Desktop/Practice/app/src/main/res/layout/activity_cardview_q2_z.xml" value="0.259375" />
         <entry key="..\:/Users/bikra/OneDrive/Desktop/Practice/app/src/main/res/layout/activity_forgot_password.xml" value="0.1" />
-        <entry key="..\:/Users/bikra/OneDrive/Desktop/Practice/app/src/main/res/layout/activity_glossary.xml" value="0.4" />
+        <entry key="..\:/Users/bikra/OneDrive/Desktop/Practice/app/src/main/res/layout/activity_glossary.xml" value="0.2" />
+        <entry key="..\:/Users/bikra/OneDrive/Desktop/Practice/app/src/main/res/layout/activity_glossary_numbers.xml" value="0.264" />
+        <entry key="..\:/Users/bikra/OneDrive/Desktop/Practice/app/src/main/res/layout/activity_glossary_serial.xml" value="0.2453125" />
         <entry key="..\:/Users/bikra/OneDrive/Desktop/Practice/app/src/main/res/layout/activity_login.xml" value="0.2" />
         <entry key="..\:/Users/bikra/OneDrive/Desktop/Practice/app/src/main/res/layout/activity_main.xml" value="0.264" />
         <entry key="..\:/Users/bikra/OneDrive/Desktop/Practice/app/src/main/res/layout/activity_signup.xml" value="0.2" />
         <entry key="..\:/Users/bikra/OneDrive/Desktop/Practice/app/src/main/res/layout/activity_splash.xml" value="0.259375" />
         <entry key="..\:/Users/bikra/OneDrive/Desktop/Practice/app/src/main/res/layout/activity_video_player.xml" value="0.259375" />
         <entry key="..\:/Users/bikra/OneDrive/Desktop/Practice/app/src/main/res/layout/cardviewadapter.xml" value="0.2" />
-        <entry key="..\:/Users/bikra/OneDrive/Desktop/Practice/app/src/main/res/layout/fragment_acount.xml" value="0.152" />
+        <entry key="..\:/Users/bikra/OneDrive/Desktop/Practice/app/src/main/res/layout/cardviewsingle1_9.xml" value="0.4" />
+        <entry key="..\:/Users/bikra/OneDrive/Desktop/Practice/app/src/main/res/layout/custom_page_end.xml" value="0.176" />
+        <entry key="..\:/Users/bikra/OneDrive/Desktop/Practice/app/src/main/res/layout/fragment_acount.xml" value="0.2" />
         <entry key="..\:/Users/bikra/OneDrive/Desktop/Practice/app/src/main/res/layout/fragment_camera.xml" value="0.136" />
         <entry key="..\:/Users/bikra/OneDrive/Desktop/Practice/app/src/main/res/layout/fragment_glossary.xml" value="0.176" />
-        <entry key="..\:/Users/bikra/OneDrive/Desktop/Practice/app/src/main/res/layout/fragment_lesson.xml" value="0.176" />
+        <entry key="..\:/Users/bikra/OneDrive/Desktop/Practice/app/src/main/res/layout/fragment_lesson.xml" value="0.16" />
         <entry key="..\:/Users/bikra/OneDrive/Desktop/Practice/app/src/main/res/layout/fragment_practice.xml" value="0.264" />
         <entry key="..\:/Users/bikra/OneDrive/Desktop/Practice/app/src/main/res/layout/gridadapter.xml" value="0.4" />
         <entry key="..\:/Users/bikra/OneDrive/Desktop/Practice/app/src/main/res/layout/info_bottom_sheet.xml" value="0.259375" />

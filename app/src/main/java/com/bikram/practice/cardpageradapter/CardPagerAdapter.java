@@ -1,29 +1,28 @@
-package com.bikram.practice;
+package com.bikram.practice.cardpageradapter;
 
-import android.content.Intent;
+
 import android.net.Uri;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
-import androidx.core.app.ActivityCompat;
 import androidx.viewpager.widget.PagerAdapter;
 
-import com.airbnb.lottie.LottieAnimationView;
+import com.bikram.practice.CardAdapter;
+import com.bikram.practice.CardItem;
+import com.bikram.practice.R;
 import com.google.android.exoplayer2.ExoPlayer;
 import com.google.android.exoplayer2.MediaItem;
 import com.google.android.exoplayer2.ui.StyledPlayerView;
 
 import java.util.ArrayList;
 import java.util.List;
-
+//Inspired by https://github.com/rubensousa/ViewPagerCards
 public class CardPagerAdapter extends PagerAdapter implements CardAdapter {
-    private List<CardView> mViews;
-    private List<CardItem> mData;
+    public static List<CardView> mViews;
+    public static List<CardItem> mData;
     private float mBaseElevation;
     public static ExoPlayer player;
     public static StyledPlayerView styledPlayerView;
@@ -36,6 +35,9 @@ public class CardPagerAdapter extends PagerAdapter implements CardAdapter {
     public void addCardItem(CardItem item) {
         mViews.add(null);
         mData.add(item);
+        if (mViews.size() > mData.size()) {
+            mViews.remove(mViews.size() - 1);
+        }
     }
 
 
@@ -46,25 +48,37 @@ public class CardPagerAdapter extends PagerAdapter implements CardAdapter {
 
     @Override
     public CardView getCardViewAt(int position) {
-        return mViews.get(position);
+        if (position >= 0 && position < mViews.size()) {
+            return mViews.get(position);
+        } else {
+            return null;
+        }
     }
 
     @Override
     public int getCount() {
-        return mData.size();
+        return mData.size() + 1;
     }
 
     @Override
     public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
-        View view = (View) object;
-        StyledPlayerView styledPlayerView = view.findViewById(R.id.videoViewA2H);
-        ExoPlayer player = (ExoPlayer) styledPlayerView.getPlayer();
-
-        // Release the player to free up resources
-        if (player != null) {
-            player.release();
+        if (position < 0 || position >= mViews.size()) {
+            return; // index out of bounds, do nothing
         }
-        container.removeView((View) object);
+        View view = (View) object;
+        CardView cardView = (CardView) view.findViewById(R.id.cardView);
+        View playerView = view.findViewById(R.id.videoViewA2H);
+
+        if (playerView instanceof StyledPlayerView) {
+            ExoPlayer player = (ExoPlayer) ((StyledPlayerView) playerView).getPlayer();
+
+            // Release the player to free up resources
+            if (player != null) {
+                player.release();
+            }
+        }
+
+        container.removeView(view);
         mViews.set(position, null);
     }
 
@@ -76,21 +90,15 @@ public class CardPagerAdapter extends PagerAdapter implements CardAdapter {
     @NonNull
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
-        View view = LayoutInflater.from(container.getContext())
-                .inflate(R.layout.cardviewadapter, container, false);
-        container.addView(view);
-        bind(mData.get(position), view);
-        CardView cardView = (CardView) view.findViewById(R.id.cardView);
-        if (mBaseElevation == 0) {
-            mBaseElevation = cardView.getCardElevation();
+        Object v = null;
+        if(listener!=null){
+            v = listener.onInstantiateItem(container,position);
         }
-
-        cardView.setMaxCardElevation(mBaseElevation * MAX_ELEVATION_FACTOR);
-        mViews.set(position, cardView);
-        return view;
+        assert v != null;
+        return v;
     }
 
-    private void bind(CardItem item, View view) {
+    public static void bind(CardItem item, View view) {
         TextView titleTextView = (TextView) view.findViewById(R.id.letterA2H);
         titleTextView.setText(item.getLetter());
         player = new ExoPlayer.Builder(view.getContext()).build();
@@ -113,15 +121,26 @@ public class CardPagerAdapter extends PagerAdapter implements CardAdapter {
         int childCount = container.getChildCount();
         for (int i = 0; i < childCount; i++) {
             View view = container.getChildAt(i);
-            if (view != null) {
-                StyledPlayerView styledPlayerView = view.findViewById(R.id.videoViewA2H);
-                ExoPlayer player = (ExoPlayer) styledPlayerView.getPlayer();
-                if (player != null){
-                    // This is the last item, so pause the player
-                    // This is not the last item, so resume the player
-                    player.setPlayWhenReady(i != container.indexOfChild(container.getChildAt(container.getChildCount()-2 )));
+            if (view instanceof ViewGroup) {
+                ViewGroup viewGroup = (ViewGroup) view;
+                for (int j = 0; j < viewGroup.getChildCount(); j++) {
+                    View childView = viewGroup.getChildAt(j);
+                    if (childView instanceof StyledPlayerView) {
+                        StyledPlayerView styledPlayerView = (StyledPlayerView) childView;
+                        ExoPlayer player = (ExoPlayer) styledPlayerView.getPlayer();
+                        if (player != null) {
+                            player.release();
+                        }
+                    }
                 }
             }
         }
+    }
+    public interface onInstantiateItemListener{
+        Object onInstantiateItem(ViewGroup viewGroup,int position);
+    }
+    private onInstantiateItemListener listener;
+    public void setOnInstantiateItem(onInstantiateItemListener onInstantiateItemListener){
+        listener = onInstantiateItemListener;
     }
 }

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".cardview.cardviewA2H">
+    tools:context=".GlossaryActivitySerial">
 
     <com.google.android.material.slider.Slider
         android:id="@+id/slider"
@@ -14,7 +14,7 @@
         android:stepSize="1.0"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@id/viewPager"
+        app:layout_constraintBottom_toTopOf="@id/viewPagerGlossaryLetter"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbar" />
@@ -32,7 +32,7 @@
 
 
     <androidx.viewpager.widget.ViewPager
-        android:id="@+id/viewPager"
+        android:id="@+id/viewPagerGlossaryLetter"
         android:layout_width="wrap_content"
         android:layout_height="530dp"
         android:layout_gravity="center"
@@ -42,7 +42,22 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        tools:ignore="SpeakableTextPresentCheck" />
+        tools:ignore="SpeakableTextPresentCheck" >
+
+
+    </androidx.viewpager.widget.ViewPager>
+
+    <ImageView
+        android:id="@+id/reset"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/worm_dots_indicator"
+        app:layout_constraintTop_toBottomOf="@+id/viewPagerGlossaryLetter"
+        app:layout_constraintVertical_bias="0.538"
+        app:srcCompat="@drawable/ic_baseline_refresh_24" />
 
     <com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator
         android:id="@+id/worm_dots_indicator"
@@ -57,7 +72,9 @@
         app:dotsStrokeWidth="2dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/viewPager" />
+        app:layout_constraintTop_toBottomOf="@+id/viewPagerGlossaryLetter"
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -199,6 +199,7 @@ public class SignupActivity extends AppCompatActivity {
                     hashMap.put("Email", email);
                     hashMap.put("Name", fullname.getText().toString());
                     hashMap.put("PhoneNo", mobile.getText().toString());
+                    hashMap.put("Photo","");
                     databaseReference.setValue(hashMap);
                 } else {
                     Toast.makeText(SignupActivity.this, String.valueOf(task.getException().getMessage()), Toast.LENGTH_SHORT).show();

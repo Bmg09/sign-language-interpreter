@@ -21,7 +21,7 @@ public class VideoPlayer extends AppCompatActivity {
         player = new ExoPlayer.Builder(this).build();
         StyledPlayerView styledPlayerView = findViewById(R.id.videoView);
         styledPlayerView.setPlayer(player);
-        MediaItem mediaItem = MediaItem.fromUri("https://firebasestorage.googleapis.com/v0/b/the-food-town.appspot.com/o/WhatsApp%20Video%202022-11-02%20at%209.57.56%20PM.mp4?alt=media&token=6357ae61-810e-4418-9ff7-3263bc36b8a7");
+        MediaItem mediaItem = MediaItem.fromUri("https://firebasestorage.googleapis.com/v0/b/ty-projectsli.appspot.com/o/intro_for_mobile_final-hevc.mp4?alt=media&token=1b4ad48d-2865-4c00-b16c-a189d440402a");
 //        Uri player_uri = Uri.parse("android.resource://com.bikram.practice/" + R.raw.a);
 //        MediaItem mediaItem = MediaItem.fromUri(player_uri);
 

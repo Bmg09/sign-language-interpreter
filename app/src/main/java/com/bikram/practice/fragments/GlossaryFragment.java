@@ -1,7 +1,8 @@
-package com.bikram.practice;
+package com.bikram.practice.fragments;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 
@@ -11,15 +12,17 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
-import android.widget.Toast;
+
+import com.bikram.practice.GlossaryActivity;
+import com.bikram.practice.GlossaryActivityNumbers;
+import com.bikram.practice.GlossaryActivitySerial;
+import com.bikram.practice.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +34,6 @@ public class GlossaryFragment extends Fragment {
     public GlossaryFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -130,15 +132,42 @@ public class GlossaryFragment extends Fragment {
 
         rvletter = view.findViewById(R.id.letter_recycler);
         RecyclerAdapter adapter = new RecyclerAdapter(getContext(), letters);
+        adapter.setOnBindViewHolderListener(new RecyclerAdapter.OnBindViewHolderListener() {
+            @Override
+            public void onBindViewHolder(RecyclerAdapter.ViewHolder holder, int position) {
+                holder.getLetter().setText(letters.get(position));
+                holder.cardView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(getContext(), GlossaryActivity.class);
+                        intent.putExtra("letter", position);
+                        getContext().startActivity(intent);
+                    }
+                });
+            }
+        });
         rvletter.setLayoutManager(new GridLayoutManager(getContext(), 5));
         rvletter.setLayoutAnimation(animation);
         rvletter.setNestedScrollingEnabled(false);
         rvletter.setAdapter(adapter);
-        
 
 
         rvnumber = view.findViewById(R.id.number_recycler);
         RecyclerAdapter adapterNum = new RecyclerAdapter(getContext(), numbers);
+        adapterNum.setOnBindViewHolderListener(new RecyclerAdapter.OnBindViewHolderListener() {
+            @Override
+            public void onBindViewHolder(RecyclerAdapter.ViewHolder holder, int position) {
+                holder.getLetter().setText(numbers.get(position));
+                holder.cardView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(getContext(), GlossaryActivityNumbers.class);
+                        intent.putExtra("letter", position);
+                        getContext().startActivity(intent);
+                    }
+                });
+            }
+        });
         rvnumber.setLayoutManager(new GridLayoutManager(getContext(), 5));
         rvnumber.setLayoutAnimation(animation);
         rvnumber.setNestedScrollingEnabled(false);
@@ -146,10 +175,27 @@ public class GlossaryFragment extends Fragment {
 
         rvserial = view.findViewById(R.id.serial_number_recycler);
         RecyclerAdapter adapterSerial = new RecyclerAdapter(getContext(), serial_number);
+        adapterSerial.setOnBindViewHolderListener(new RecyclerAdapter.OnBindViewHolderListener() {
+            @Override
+            public void onBindViewHolder(RecyclerAdapter.ViewHolder holder, int position) {
+                holder.getLetter().setText(serial_number.get(position));
+                holder.cardView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(getContext(), GlossaryActivitySerial.class);
+                        intent.putExtra("letter", position);
+                        getContext().startActivity(intent);
+                    }
+                });
+
+            }
+        });
         rvserial.setLayoutManager(new GridLayoutManager(getContext(), 5));
         rvserial.setNestedScrollingEnabled(false);
         rvserial.setAdapter(adapterSerial);
 
         return view;
     }
+
+
 }

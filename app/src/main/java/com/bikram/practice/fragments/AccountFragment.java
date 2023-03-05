@@ -1,17 +1,14 @@
-package com.bikram.practice;
+package com.bikram.practice.fragments;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.content.Intent;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -21,19 +18,24 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
-import com.bikram.practice.IntroLoader.VideoPlayer;
-import com.shashank.sony.fancydialoglib.Animation;
-import com.shashank.sony.fancydialoglib.FancyAlertDialog;
+import com.bikram.practice.LoginActivity;
+import com.bikram.practice.R;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.firebase.auth.FirebaseAuth;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link LessonFragment#newInstance} factory method to
+ * Use the {@link AccountFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class LessonFragment extends Fragment {
-    CardView letterA2H;
+public class AccountFragment extends Fragment {
+    FirebaseAuth auth;
+    GoogleSignInAccount googleSignIn;
+    GoogleSignInClient googleSignInClient;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -43,7 +45,7 @@ public class LessonFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public LessonFragment() {
+    public AccountFragment() {
         // Required empty public constructor
     }
 
@@ -53,11 +55,11 @@ public class LessonFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment LessonFragment.
+     * @return A new instance of fragment AcountFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static LessonFragment newInstance(String param1, String param2) {
-        LessonFragment fragment = new LessonFragment();
+    public static AccountFragment newInstance(String param1, String param2) {
+        AccountFragment fragment = new AccountFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -67,8 +69,8 @@ public class LessonFragment extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        setHasOptionsMenu(true);
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -79,12 +81,18 @@ public class LessonFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_lesson, container, false);
+        View view = inflater.inflate(R.layout.fragment_acount, container, false);
+        auth = FirebaseAuth.getInstance();
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+
+// Build a GoogleSignInClient with the options specified by gso.
+        googleSignInClient = GoogleSignIn.getClient(getContext(), gso);
         Toolbar toolbar = view.findViewById(R.id.toolbar);
-        toolbar.setTitle("Lessons");
+        toolbar.setTitle("Account");
         AppCompatActivity activity = (AppCompatActivity) getActivity();
         activity.setSupportActionBar(toolbar);
-//        activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         view.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -104,47 +112,27 @@ public class LessonFragment extends Fragment {
                 anim.start();
             }
         }, 0);
-        letterA2H = view.findViewById(R.id.cardView);
-        letterA2H.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                activity.startActivity(new Intent(getContext(),cardviewA2H.class));
-            }
-        });
         return view;
     }
 
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-
-        inflater.inflate(R.menu.lesson_menu, menu);
         super.onCreateOptionsMenu(menu, inflater);
+        menu.add(Menu.NONE, 1, Menu.NONE, "Sign out");
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.intro:
-                startActivity(new Intent (getActivity(), VideoPlayer.class));
-                Toast.makeText(getActivity(), "Intro", Toast.LENGTH_SHORT).show();
-                break;
-            case R.id.info:
-                FancyAlertDialog.Builder.with(getContext()).setTitle("About Lesson Page")
-                    .setBackgroundColor(Color.parseColor("#303F9F"))  // for @ColorRes use setBackgroundColorRes(R.color.colorvalue)
-                    .setMessage("We have provided Two Categories as lessons for user to practice the signs Letters and Numbers")
-                    .setNegativeBtnText("Cancel")
-                    .setPositiveBtnBackground(Color.parseColor("#FF4081"))  // for @ColorRes use setPositiveBtnBackgroundRes(R.color.colorvalue)
-                    .setPositiveBtnText("Ok")
-                    .setNegativeBtnBackground(Color.parseColor("#FFA9A7A8"))  // for @ColorRes use setNegativeBtnBackgroundRes(R.color.colorvalue)
-                    .setAnimation(Animation.SLIDE)
-                    .isCancellable(true)
-                    .setIcon(R.drawable.lesson, View.VISIBLE)
-                    .onPositiveClicked(dialog -> Toast.makeText(getContext(), "Enjoy!", Toast.LENGTH_SHORT).show())
-                    .onNegativeClicked(dialog -> Toast.makeText(getContext(), "Cancel", Toast.LENGTH_SHORT).show())
-                    .build()
-                    .show();
+            case 1:
+                auth.signOut();
+                boolean issigned = GoogleSignIn.getLastSignedInAccount(getContext()) != null;
+                if (issigned) {
+                    googleSignInClient.signOut();
+                }
+                startActivity(new Intent(getContext(), LoginActivity.class));
                 break;
         }
-        return super.onOptionsItemSelected(item);
+        return true;
     }
 }

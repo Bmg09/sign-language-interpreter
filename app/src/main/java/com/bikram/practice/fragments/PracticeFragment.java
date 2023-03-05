@@ -1,4 +1,4 @@
-package com.bikram.practice;
+package com.bikram.practice.fragments;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -20,6 +20,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.bikram.practice.CameraActivity;
+import com.bikram.practice.R;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.ml.modeldownloader.CustomModel;
 import com.google.firebase.ml.modeldownloader.CustomModelDownloadConditions;

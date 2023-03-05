@@ -4,12 +4,18 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import com.bikram.practice.fragments.AccountFragment;
+import com.bikram.practice.fragments.GlossaryFragment;
+import com.bikram.practice.fragments.LessonFragment;
+import com.bikram.practice.fragments.PracticeFragment;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -23,7 +29,17 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
+        FirebaseMessaging.getInstance().subscribeToTopic("general")
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        String msg = "Successfull";
+                        if (!task.isSuccessful()) {
+                            msg = "failed";
+                        }
+//                        Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
+                    }
+                });
         getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, new LessonFragment()).commit();
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {

@@ -6,70 +6,48 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
 
+import com.bikram.practice.cardpageradapter.CardPagerAdapter1_9;
 import com.google.android.material.slider.Slider;
 import com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator;
 
-public class cardviewA2H extends AppCompatActivity {
+public class GlossaryActivityNumbers extends AppCompatActivity {
     ViewPager viewPager;
     WormDotsIndicator wormDotsIndicator;
     Slider slider;
+    int selectedPosition;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_cardview_a2_h);
+        setContentView(R.layout.activity_glossary_numbers);
         overridePendingTransition(R.anim.fadein, R.anim.fadeout);
         Toolbar toolbar = findViewById(R.id.toolbar);
-        toolbar.setTitle("Letters A-H");
+        toolbar.setTitle("Number 1-9");
         setSupportActionBar(toolbar);
+        selectedPosition = getIntent().getIntExtra("letter", 0);
         wormDotsIndicator = (WormDotsIndicator) findViewById(R.id.worm_dots_indicator);
-        viewPager = findViewById(R.id.viewPager);
+        viewPager = findViewById(R.id.viewPagerGlossaryLetter);
         slider = findViewById(R.id.slider);
-        CardPagerAdapter mCardAdapter = new CardPagerAdapter();
-        mCardAdapter.addCardItem(new CardItem("A", R.raw.a));
-        mCardAdapter.addCardItem(new CardItem("B", R.raw.b));
-        mCardAdapter.addCardItem(new CardItem("C", R.raw.c));
-        mCardAdapter.addCardItem(new CardItem("D", R.raw.d));
-        mCardAdapter.addCardItem(new CardItem("E", R.raw.e));
-        mCardAdapter.addCardItem(new CardItem("F", R.raw.f));
-        mCardAdapter.addCardItem(new CardItem("G", R.raw.g));
-        mCardAdapter.addCardItem(new CardItem("H", R.raw.h));
+        CardPagerAdapter1_9 mCardAdapter = new CardPagerAdapter1_9();
+        for (int i = 1; i <= 9; i++) {
+            int resourceId = getResources().getIdentifier("handshape_" + i, "drawable", getPackageName());
+            mCardAdapter.addCardItem(new CardItem2(String.valueOf(i), resourceId));
+        }
         slider.setValueFrom(0f);
-        slider.setValueTo(8f);
+        slider.setValueTo(10f);
         slider.setStepSize(1f);
-
         ShadowTransformer mCardShadowTransformer = new ShadowTransformer(viewPager, mCardAdapter);
         viewPager.setAdapter(mCardAdapter);
         viewPager.setPageTransformer(false, mCardShadowTransformer);
         viewPager.setOffscreenPageLimit(1);
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                View view = viewPager.getChildAt(position);
-                if (view != null) {
-
-                }
-
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
-
+        viewPager.setCurrentItem(selectedPosition);
+        slider.setValue(selectedPosition);
         wormDotsIndicator.attachTo(viewPager);
         slider.addOnChangeListener(new Slider.OnChangeListener() {
             @Override
             public void onValueChange(@NonNull Slider slider, float value, boolean fromUser) {
-                viewPager.setCurrentItem((int) value);
+                viewPager.setCurrentItem((int) value,true);
             }
         });
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -88,6 +66,5 @@ public class cardviewA2H extends AppCompatActivity {
 
             }
         });
-
     }
 }
