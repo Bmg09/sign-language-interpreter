@@ -55,6 +55,7 @@ android {
 }
 
 dependencies {
+    implementation 'com.github.takusemba:cropme:2.0.8'
 
     //firebase
     // Import the Firebase BoM

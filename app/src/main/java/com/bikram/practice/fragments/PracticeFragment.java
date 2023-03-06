@@ -2,6 +2,7 @@ package com.bikram.practice.fragments;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -49,6 +50,7 @@ public class PracticeFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    ProgressDialog progressDialog;
 
     public PracticeFragment() {
         // Required empty public constructor
@@ -91,8 +93,12 @@ public class PracticeFragment extends Fragment {
         toolbar.setTitle("Practice");
         AppCompatActivity activity = (AppCompatActivity) getActivity();
         activity.setSupportActionBar(toolbar);
+        progressDialog = new ProgressDialog(getContext(), ProgressDialog.STYLE_SPINNER);
         CustomModelDownloadConditions conditions = new CustomModelDownloadConditions.Builder()
                 .build();
+        progressDialog.setTitle("Downloading model Please wait.");
+        progressDialog.setMessage("Download in progress.");
+        progressDialog.show();
         FirebaseModelDownloader.getInstance()
                 .getModel("HandSignDetector", DownloadType.LATEST_MODEL, conditions)
                 .addOnSuccessListener(new OnSuccessListener<CustomModel>() {
@@ -150,9 +156,9 @@ public class PracticeFragment extends Fragment {
         assert files != null;
         for (String fname :
                 files) {
-            Log.i("files",fname);
+            Log.i("files", fname);
         }
-        if(files.length == 0){
+        if (files.length == 0) {
             Log.w("check1", "NO FILES IN FOLDER");
         }
 
@@ -160,26 +166,26 @@ public class PracticeFragment extends Fragment {
             File sd = Environment.getExternalStorageDirectory();
             File data = Environment.getDataDirectory();
             Toast.makeText(getContext(), String.valueOf(sd.canRead()), Toast.LENGTH_SHORT).show();
-            if(sd.canRead()){
-                String currentModelPath = "//data//"+ requireContext().getPackageName()+"//no_backup//com.google.firebase.ml.custom.models//"+uid+"//HandSignDetector//"+parts[parts.length - 1];
-                String backupModelPath = "//data//"+ requireContext().getPackageName()+"//files//0.tflite";
-                File currentModel = new File(data,currentModelPath);
-                File backupModel = new File(data,backupModelPath);
-                if (currentModel.exists()){
+            if (sd.canRead()) {
+                String currentModelPath = "//data//" + requireContext().getPackageName() + "//no_backup//com.google.firebase.ml.custom.models//" + uid + "//HandSignDetector//" + parts[parts.length - 1];
+                String backupModelPath = "//data//" + requireContext().getPackageName() + "//files//0.tflite";
+                File currentModel = new File(data, currentModelPath);
+                File backupModel = new File(data, backupModelPath);
+                if (currentModel.exists()) {
 
                     FileChannel src = new FileInputStream(currentModel).getChannel();
                     Toast.makeText(getContext(), String.valueOf(src), Toast.LENGTH_SHORT).show();
                     FileChannel dst = new FileOutputStream(backupModel).getChannel();
-                    dst.transferFrom(src,0,src.size());
+                    dst.transferFrom(src, 0, src.size());
                     Toast.makeText(getContext(), "success", Toast.LENGTH_SHORT).show();
                     src.close();
                     dst.close();
-                }
-                else
+                    progressDialog.dismiss();
+                } else
                     Toast.makeText(getContext(), "Failed", Toast.LENGTH_SHORT).show();
             }
         } catch (Exception e) {
-            Log.e("error",e.getMessage());
+            Log.e("error", e.getMessage());
         }
     }
 }
