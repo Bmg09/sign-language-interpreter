@@ -48,9 +48,7 @@ To deploy this project Open Android Studio and through android studio open app d
 
 ## Screenshots
 
-![App Screenshot]
 ![WhatsApp Image 2023-03-18 at 7 59 43 AM](https://user-images.githubusercontent.com/94036648/226078446-75f49595-44ef-46a2-ad75-4f699383330b.jpeg)
-
 
 ## Badges
 
