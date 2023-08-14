@@ -25,40 +25,9 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew build
 
-      # Increment the release version
-      - name: Get Latest Tag
-        id: get_latest_tag
-        run: echo ::set-output name=tag::$(git describe --abbrev=0)
-
-      - name: Increment Version
-        id: increment_version
-        run: echo ::set-output name=version::$(echo ${{ steps.get_latest_tag.outputs.tag }} | awk -F. -v OFS=. '{$NF++;print}')
-
-      - name: Create Release and Attach Artifact
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ steps.increment_version.outputs.version }}
-          release_name: Release ${{ steps.increment_version.outputs.version }}
-          draft: false
-          prerelease: false
-
+      # Upload debug.apk as an artifact
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v2
         with:
           name: debug-apk
           path: app/build/outputs/apk/debug/app-debug.apk
-
-      # Attach the uploaded artifact to the release
-      - name: Upload Artifact to Release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          RELEASE_ID: ${{ steps.create_release.outputs.release_id }}
-        run: |
-          curl -sSL \
-            -H "Authorization: token $GITHUB_TOKEN" \
-            -H "Content-Type: application/zip" \
-            --data-binary @app/build/outputs/apk/debug/app-debug.apk \
-            "https://uploads.github.com/repos/$GITHUB_REPOSITORY/releases/$RELEASE_ID/assets?name=debug.apk"
