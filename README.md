@@ -11,7 +11,7 @@ Hand Sign Detection App is an innovative and user-friendly application designed 
 - Sentence Generation.
 - Options for Changing threshold,Number of Threads.
 - ASL (Preview)
-
+ 
 
 ## License
 
